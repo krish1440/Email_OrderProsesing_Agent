@@ -65,13 +65,16 @@ def run_agent():
                 customer_email = email_data['sender_email']
 
             # 5. Prepare Sheet Data
+            # Ensure items and other fields are strings (prevents Sheets API 400 errors)
+            items_str = str(order.get('items', 'N/A'))
+            
             sheet_row = [
-                order_date,
-                order_id,
-                order.get('customer_name', 'N/A'),
-                customer_email,
-                order.get('items', 'N/A'),
-                order.get('total_amount', 'N/A'),
+                str(order_date),
+                str(order_id),
+                str(order.get('customer_name', 'N/A')),
+                str(customer_email),
+                items_str,
+                str(order.get('total_amount', 'N/A')),
                 "New",
                 f"https://mail.google.com/mail/u/0/#inbox/{msg_id}"
             ]
