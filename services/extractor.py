@@ -29,7 +29,9 @@ class OrderExtractor:
         - order_id: (Look for numbers like #1234 or "Order 1234". Use "N/A" if missing)
         - customer_name: (Full name of the person buying)
         - customer_email: (Their contact email)
-        - items: (List of products and quantities)
+        - product_name: (The main product purchased, e.g., "iPhone")
+        - quantity: (The number of items purchased)
+        - items: (A summary string of all items)
         - total_amount: (The final price paid)
         - date: (The date of the order)
 

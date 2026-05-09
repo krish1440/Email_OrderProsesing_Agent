@@ -10,6 +10,20 @@ from services.extractor import OrderExtractor
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding='utf-8')
 
+def format_items(items):
+    """Converts AI list/dict into a clean string like '2 x iPhone'."""
+    if isinstance(items, list):
+        formatted = []
+        for item in items:
+            if isinstance(item, dict):
+                qty = item.get('quantity', item.get('qty', '1'))
+                name = item.get('product', item.get('name', 'Item'))
+                formatted.append(f"{qty} x {name}")
+            else:
+                formatted.append(str(item))
+        return ", ".join(formatted)
+    return str(items)
+
 def run_agent():
     print("--- Email Order Agent Starting ---")
     
@@ -66,14 +80,14 @@ def run_agent():
 
             # 5. Prepare Sheet Data
             # Ensure items and other fields are strings (prevents Sheets API 400 errors)
-            items_str = str(order.get('items', 'N/A'))
-            
+            items_str = format_items(order.get('items', 'N/A'))
             sheet_row = [
                 str(order_date),
                 str(order_id),
                 str(order.get('customer_name', 'N/A')),
                 str(customer_email),
-                items_str,
+                str(order.get('product_name', 'N/A')),
+                str(order.get('quantity', 'N/A')),
                 str(order.get('total_amount', 'N/A')),
                 "New",
                 f"https://mail.google.com/mail/u/0/#inbox/{msg_id}"

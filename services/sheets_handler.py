@@ -24,3 +24,17 @@ class SheetsHandler:
         ).execute()
         
         return result
+
+    def initialize_headers(self, headers, range_name="Sheet1!A1"):
+        """
+        Sets the first row of the sheet as headers.
+        """
+        body = {
+            'values': [headers]
+        }
+        self.service.spreadsheets().values().update(
+            spreadsheetId=self.spreadsheet_id,
+            range=range_name,
+            valueInputOption='USER_ENTERED',
+            body=body
+        ).execute()
