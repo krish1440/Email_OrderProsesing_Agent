@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Google Credentials (IMPORTANT: DO NOT REMOVE)
+credentials.json
+token.json
+client_secret.json
+*.json.json
+
+# IDEs
+.vscode/
+.idea/
+
+# GSD/Planning
+# .planning/
